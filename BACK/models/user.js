@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema(
         },
 
     
-        Ativo: {
+        Ativo: {  
             type: Boolean,
             default: true,
         },

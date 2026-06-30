@@ -17,7 +17,7 @@ async function autenticar(req, res, next) {
 
     if (!usuario) {
       return res.status(401).json({ erro: "Usuário não encontrado" });
-    }
+    }   
 
     // RN04 - usuário inadimplente/bloqueado não pode fazer novas reservas
     if (!usuario.ativo) {

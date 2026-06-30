@@ -53,7 +53,7 @@ const login = async (req,res,next) => {
 }
 
 
-export default {
+export default {    
     createUser,
     listUser,
     updateUser,

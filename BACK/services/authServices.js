@@ -24,7 +24,7 @@ const updateUser = async (id, data) => {
         throw error;
     }
 
-    return user;
+    return user;      
 }
 
 const userDelet = async (id) => {
