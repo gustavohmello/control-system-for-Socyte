@@ -1,6 +1,15 @@
 const jwt = req("jsonwebtoken");
 const User = req("../models/User");
 
+
+
+
+
+// REFAZER !!
+
+
+
+
 // Verifica se o usuário está autenticado (RF02 / rotas protegidas)
 async function autenticar(req, res, next) {
   try {

@@ -1,15 +1,7 @@
 import authServices from "../services/authServices.js"
 
-const createUser = async (req,res, next) => {
 
-    try{
-    const user =  await authServices.createUser(req.body);
-    res.status(201).json(user)
-    } catch (error){
-        next(error);
-    }
-
-};
+// Não estão sendo usadas ainda !
 
 const listUser = async (req,res,next) => {
     try {
@@ -32,18 +24,36 @@ const updateUser = async (req,res,next) => {
 const userDelet = async (req,res,next) => {
     try{
         const user = await authServices.userDelet(req.params.id);
-        res.json({ menssage: "Usuario deletado com sucesso", user});
+        res.json({ menssage: "User successfully deleted ", user});
     }catch (error){
         next(error);
     }
 }
+
+// Auth User controllers
+
+
+const register = async (req,res,next) => {
+    try{
+        const user = await authServices.register(req.body);
+
+        res.status(201).json({
+            menssage: "User register sucessful",
+            deta: user,
+        })
+    }catch (error){
+        next(error)
+    }
+}
+
+
 
 const login = async (req,res,next) => {
     try{
         const result = await authServices.login(req.body);
 
         res.status(200).json({
-            menssage: "login realizado com sucesso",
+            menssage: "Login successful",
             data: result,
 
         })
@@ -52,11 +62,28 @@ const login = async (req,res,next) => {
     }
 }
 
+// Business Register
+
+const registerBusiness = async (req,res,next) => {
+    try{
+        const business = await authServices.registerBusiness(req.body);
+
+        res.status(201).json({
+            menssage: "Business register sucessful",
+            deta: business,
+        })
+    }catch (error){
+        next(error)
+    }
+}
+
+
 
 export default {    
-    createUser,
     listUser,
     updateUser,
     userDelet,
-    login
+    login,
+    register,
+    registerBusiness
 };

@@ -23,8 +23,15 @@ const UserSchema = new mongoose.Schema(
             unique: true,
         },
 
+        CPF: {
+            type: Number,
+            trim: true,
+            unique: true,
+            required: true,
+        },
+
     
-        Ativo: {  
+        Active: {  
             type: Boolean,
             default: true,
         },

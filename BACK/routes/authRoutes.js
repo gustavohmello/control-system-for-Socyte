@@ -1,16 +1,21 @@
 import express from "express";
 import authController from "../controllers/authController.js";
 
+
 const router = express.Router();
 
-// Routers registro
-
-router.post("/", authController.createUser);
-router.get("/",authController.listUser);
+router.get("/", authController.listUser);
 router.put("/:id",authController.updateUser);
 router.delete("/:id",authController.userDelet);
 
-router.post("/login", authController.login)
+// Auth User routes
+
+router.post("/register", authController.register);
+router.get("/login", authController.login)
+
+// Business Register
+
+router.post("/registerBusiness", authController.registerBusiness)
 
 
 
