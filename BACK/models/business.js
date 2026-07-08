@@ -28,9 +28,15 @@ const businessSchema = new mongoose.Schema(
         },
 
         daysOfOperation: {
-            type: String,
-            required: true,
-            trim: true,
+            
+             type: [
+                {
+                    type:String,
+                    trim:true
+                }
+             ],
+
+             required: true
         },
 
         playingTime: {
@@ -45,11 +51,19 @@ const businessSchema = new mongoose.Schema(
             trim: true,
         },
 
-        paymentMethods:{
-            type: String,
-            required: true,
-            trim: true,
+        paymentMethods: {
+            
+             
+            type: [
+                {
+                    type:String,
+                    trim:true
+                }
+             ],
+
+             required: true
         },
+   
 
         cancellationPolicy: {
             type: String,

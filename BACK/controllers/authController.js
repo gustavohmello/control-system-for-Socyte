@@ -70,13 +70,27 @@ const registerBusiness = async (req,res,next) => {
 
         res.status(201).json({
             menssage: "Business register sucessful",
-            deta: business,
+            data: business,
         })
     }catch (error){
         next(error)
     }
 }
 
+// Time Register
+
+const registerTime = async (req,res,next) => {
+    try{
+        const time = await authServices.registerTime(req.body);
+
+        res.status(201).json({
+            menssage: "Time register sucessful",
+            data: time,
+        })
+    }catch (error){
+        next(error)
+    }
+}
 
 
 export default {    
@@ -85,5 +99,6 @@ export default {
     userDelet,
     login,
     register,
-    registerBusiness
+    registerBusiness,
+    registerTime
 };
