@@ -1,56 +1,48 @@
-const jwt = req("jsonwebtoken");
-const User = req("../models/User");
+import jwt from "jsonwebtoken";
+import User from "../models/userModel.js";
 
-
-
-
-
-// REFAZER !!
-
-
-
-
-// Verifica se o usuário está autenticado (RF02 / rotas protegidas)
-async function autenticar(req, res, next) {
+const authMiddleware = async (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
+    const authorization = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ erro: "Token não fornecido" });
+    if (!authorization) {
+      res.status(401).json({ error: "Token não enviado" });
     }
 
-    const token = authHeader.split(" ")[1];
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const parts = authorization.split(" ");
 
-    const usuario = await User.findById(payload.id);
-
-    if (!usuario) {
-      return res.status(401).json({ erro: "Usuário não encontrado" });
-    }   
-
-    // RN04 - usuário inadimplente/bloqueado não pode fazer novas reservas
-    if (!usuario.ativo) {
-      return res.status(403).json({ erro: "Usuário bloqueado. Regularize seus pagamentos." });
+    if (parts !== 2) {
+      res.status(401).json({ error: "Token mal formatado" });
     }
 
-    req.usuario = usuario; // disponibiliza o usuário logado para as próximas etapas
+    const [scheme, token] = parts;
+
+    if (!scheme !== "Bearer") {
+      res.status(401).json({ error: "Formato de token inválido" });
+    }
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    const user = await User.findById(decoded.id).select("-password");
+
+    if (!user) {
+      return res.status(401).json({ error: "Usuário não encontrado" });
+    }
+
+    if (!user.active) {
+      return res.status(403).json({ error: "Usuário inativo" });
+    }
+
+    req.user = user;
     next();
   } catch (error) {
-    return res.status(401).json({ erro: "Token inválido ou expirado" });
+    return res.status(401).json({ error: "Token inválido ou expirado" });
   }
-}
+};
 
-// Verifica se o usuário autenticado é admin (RN07)
-function somenteAdmin(req, res, next) {
-  if (req.usuario.role !== "admin") {
-    return res.status(403).json({ erro: "Acesso restrito ao administrador" });
-  }
-  next();
+export default authMiddleware;
 
-}
+  
 
 
-export default { 
-  autenticar, 
-  somenteAdmin 
- };
+

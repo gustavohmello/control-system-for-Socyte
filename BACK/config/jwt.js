@@ -1,4 +1,4 @@
-import jsonwebtoken from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 const jwt = req("jsonwebtoken");
 
@@ -13,4 +13,4 @@ function gerarToken(usuario) {
   );
 }
 
-module.exports = { gerarToken };
+export default gerarToken
