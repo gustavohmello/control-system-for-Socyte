@@ -1,0 +1,47 @@
+# site para gestão de um socyte :
+
+# devera ter:
+
+# registro do admin;
+# "no modelo de criar um usuario.
+
+
+
+# questionario para registro do socyte;
+# perguntas:
+# local, 
+# valor
+
+
+# Questionário para Cadastro de Quadra/Campo Society
+# Informações Gerais
+# Qual é o nome da quadra/campo?
+# Qual é o endereço completo?
+# Qual é o telefone ou WhatsApp para contato?
+# O campo é coberto ou ao ar livre?
+# Quais são os dias de funcionamento?
+# Qual é a duração de cada horário de reserva? (Ex.: 1 hora, 1h30, 2 horas)
+# Qual é o valor da locação por horário?
+# Quais formas de pagamento são aceitas?
+# Existe política de cancelamento? Se sim, qual?
+# Há alguma regra específica de uso do campo?
+# Há vestiários e banheiros disponíveis?
+# O local oferece lanchonete ou venda de bebidas?
+
+# Essas perguntas são suficientes para montar um sistema de reservas funcional, permitindo configurar horários disponíveis, preços, regras de uso e informações que os clientes precisam visualizar antes de efetuar uma reserva.
+
+
+
+reserva de horarios!
+
+- horarios disponiveis 
+- duração do horário
+- tempo maximo de cancelamento
+- qual o dia da semana
+- data
+- horario disponivel
+
+data 
+inicio 
+fim 
+responsavel

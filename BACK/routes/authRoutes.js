@@ -17,6 +17,10 @@ router.get("/login", authController.login)
 
 router.post("/registerBusiness", authController.registerBusiness)
 
+// Time Resgiter
+
+router.post("/registerTime", authController.registerTime)
+
 
 
 

@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import Business from "../models/business.js";
+import Time from "../models/ReservationTime.js"
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -9,10 +10,9 @@ const listUser = async () => {
 
 
 const updateUser = async (id, data) => {
-    
-    const user = await User.findByIdAndUpdate(id,data, {
-        
-        returnDocument : 'after',
+
+    const user = await User.findByIdAndUpdate(id, data, {
+        returnDocument: 'after',
         runValidators: true,
     });
 
@@ -22,10 +22,11 @@ const updateUser = async (id, data) => {
         throw error;
     }
 
-    return user;      
+    return user;
 }
 
 const userDelet = async (id) => {
+
     const deleteUser = await User.countDocuments({_id: id });
 
     if (deleteUser > 0 ){
@@ -59,7 +60,7 @@ const register = async (data) => {
     if (userExists) {
         throw new Error("A user with this email already exists.")
     }
-    
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
@@ -94,7 +95,7 @@ const login = async (data) => {
     if (!Email || !password) {
 
         throw new Error("Email and password are required")
-      
+
 
     }
 
@@ -104,7 +105,7 @@ const login = async (data) => {
     if (!user) {
         throw new Error("Email or passord invalid");
     }
-    
+
     if (user.Active === false) {
         throw new Error("User is deactivated");
     }
@@ -123,7 +124,7 @@ const login = async (data) => {
         },
         process.env.JWT_SECRET,
         {
-          expiresIn: process.env.JWT_EXPIRES_IN
+            expiresIn: process.env.JWT_EXPIRES_IN
         }
     )
     console.log(process.env.JWT_SECRET)
@@ -137,7 +138,7 @@ const login = async (data) => {
             password: user.password,
             CPF: user.CPF,
             role: user.role,
-            Active:user.Active,
+            Active: user.Active,
 
         },
         token,
@@ -149,9 +150,9 @@ const login = async (data) => {
 // Business Register
 
 const registerBusiness = async (data) => {
-    const { NameSocyte, Address, ContactPhoneNumber, OpenAirOrCovered ,daysOfOperation,  playingTime, hourlyRate,paymentMethods, cancellationPolicy,  UsagePolicy, ItHasChangingRoomsAndASnackBar } = data;
+    const { NameSocyte, Address, ContactPhoneNumber, OpenAirOrCovered, daysOfOperation, playingTime, hourlyRate, paymentMethods, cancellationPolicy, UsagePolicy, ItHasChangingRoomsAndASnackBar } = data;
 
-    if (!NameSocyte|| !Address || !ContactPhoneNumber || ! OpenAirOrCovered || !daysOfOperation || ! playingTime || !hourlyRate ||! paymentMethods || !cancellationPolicy || !UsagePolicy || !ItHasChangingRoomsAndASnackBar) {
+    if (!NameSocyte || !Address || !ContactPhoneNumber || !OpenAirOrCovered || !daysOfOperation || !playingTime || !hourlyRate || !paymentMethods || !cancellationPolicy || !UsagePolicy || !ItHasChangingRoomsAndASnackBar) {
         throw new Error("Name, email, and password are required.")
     }
 
@@ -177,11 +178,11 @@ const registerBusiness = async (data) => {
     });
 
     return {
-       
+
         NameSocyte: business.NameSocyte,
         Address: business.Address,
         ContactPhoneNumber: business.ContactPhoneNumber,
-        OpenAirOrCovered:business.OpenAirOrCovered,
+        OpenAirOrCovered: business.OpenAirOrCovered,
         daysOfOperation: business.daysOfOperation,
         playingTime: business.playingTime,
         hourlyRate: business.hourlyRate,
@@ -194,6 +195,43 @@ const registerBusiness = async (data) => {
 
 }
 
+// Time Register
+
+const registerTime = async (data) => {
+    const { date, startTime, endTime, NameOfPersonInCharge, amountPayable } = data;
+
+    if (!date || !startTime || !endTime || !NameOfPersonInCharge || !amountPayable) {
+        throw new Error("Name, email, and password are required.")
+    }
+
+    const timeExists = await Time.findOne({ date });
+
+    if (timeExists) {
+        throw new Error("A time with this date already exists.")
+    }
+
+
+    const time = await Time.create({
+
+        date,
+        startTime,
+        endTime,
+        NameOfPersonInCharge, 
+        amountPayable
+
+    });
+
+    return {
+
+        date: time.date,
+        startTime: time.startTime,
+        endTime: time.endTime,
+        NameOfPersonInCharge: time.NameOfPersonInCharge,
+        amountPayable: time.amountPayable
+
+    }
+
+};
 
 
 export default {
@@ -202,5 +240,6 @@ export default {
     userDelet,
     login,
     register,
-    registerBusiness
+    registerBusiness,
+    registerTime
 }
