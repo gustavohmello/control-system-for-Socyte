@@ -3,6 +3,11 @@ import dotenv from "dotenv";
 import conectDB from "./config/db.js";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
+import businessRoutes from "./routes/businessRoutes.js"
+
+
+
+
 
 
 
@@ -19,6 +24,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/business",businessRoutes);
+
+
+
 
 
 const startServer = async () => {

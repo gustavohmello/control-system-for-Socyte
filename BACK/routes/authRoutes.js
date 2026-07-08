@@ -11,7 +11,7 @@ router.delete("/:id",authController.userDelet);
 // Auth User routes
 
 router.post("/register", authController.register);
-router.get("/login", authController.login)
+router.get("/login", authController.login) 
 
 // Business Register
 
