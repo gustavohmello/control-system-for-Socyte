@@ -7,7 +7,7 @@ const listUser = async (req,res,next) => {
     try {
         const user = await authServices.listUser();
         res.json(user); 
-    }catch (error){
+    }catch (error){  
         next(error);
     }
 };

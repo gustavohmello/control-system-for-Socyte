@@ -9,7 +9,12 @@ const listUser = async () => {
 
 
 const updateUser = async (id, data) => {
+    delete data.active
+    delete data.password  // pra mudar a senha não é aqui, precisa criar outro campo
+    delete data.role
+ 
     const user = await User.findByIdAndUpdate(id,data, {
+        
         returnDocument : 'after',
         runValidators: true,
     });
@@ -24,10 +29,10 @@ const updateUser = async (id, data) => {
 }
 
 const userDelet = async (id) => {
-    const deleteUser = await User.countDocuments({userId: id });
+    const deleteUser = await User.countDocuments({_id: id });
 
     if (deleteUser > 0 ){
-        const error = new Error ("It is not possible to delete a user who has an 'active' account.");
+        const error = new Error ("It is not possible to delete a user who has an active account.");
         error.statusCode = 400;
         throw error;
     }
