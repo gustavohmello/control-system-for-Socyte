@@ -69,7 +69,6 @@ const register = async (data) => {
         CPF,
         password: hashedPassword,
         Telephone,
-        password,
         role: role || "user",
         Active: true,
     });
@@ -93,14 +92,10 @@ const login = async (data) => {
     const { Email, password } = data;
 
     if (!Email || !password) {
-
         throw new Error("Email and password are required")
-
-
     }
 
     const user = await User.findOne({ Email }).select("+password");
-
 
     if (!user) {
         throw new Error("Email or passord invalid");
@@ -110,12 +105,13 @@ const login = async (data) => {
         throw new Error("User is deactivated");
     }
 
+    const passwordIsCorrect = bcrypt.compareSync(password, user.password);
 
-    const passordIsCorrect = bcrypt.compare(password, user.password);
-
-    if (!passordIsCorrect) {
-        throw new Error("Password invalid");
-    }
+    if (!passwordIsCorrect) {
+        const error = new Error("Email ou senha inválidos");
+        error.statusCode = 401;
+        throw error;
+      }
 
     const token = jwt.sign(
         {
@@ -124,10 +120,10 @@ const login = async (data) => {
         },
         process.env.JWT_SECRET,
         {
-            expiresIn: process.env.JWT_EXPIRES_IN
+            expiresIn: process.env.JWT_EXPIRES_IN || "1d",
         }
     )
-    console.log(process.env.JWT_SECRET)
+
 
     return {
         user: {
@@ -135,7 +131,6 @@ const login = async (data) => {
             Name: user.Name,
             Email: user.Email,
             Telephone: user.Telephone,
-            password: user.password,
             CPF: user.CPF,
             role: user.role,
             Active: user.Active,
