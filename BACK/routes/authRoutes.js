@@ -4,9 +4,6 @@ import authController from "../controllers/authController.js";
 
 const router = express.Router();
 
-router.get("/", authController.listUser);
-router.put("/:id",authController.updateUser);
-router.delete("/:id",authController.userDelet);
 
 // Auth User routes
 

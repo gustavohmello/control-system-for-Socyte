@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import conectDB from "./config/db.js";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
-import businessRoutes from "./routes/businessRoutes.js"
+import updateAndDeletRoutes from "./routes/updateAndDeletRoutes.js"
 
 
 
@@ -19,12 +19,8 @@ const PORT = process.env.PORT || 3500;
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.json({ mensage: "API de loja do Banco funcionando " })
-});
-
 app.use("/auth", authRoutes);
-app.use("/business",businessRoutes);
+app.use("/updateAndDelet",updateAndDeletRoutes);
 
 
 
