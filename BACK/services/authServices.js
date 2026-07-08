@@ -9,10 +9,7 @@ const listUser = async () => {
 
 
 const updateUser = async (id, data) => {
-    delete data.active
-    delete data.password  // pra mudar a senha não é aqui, precisa criar outro campo
-    delete data.role
- 
+    
     const user = await User.findByIdAndUpdate(id,data, {
         
         returnDocument : 'after',
