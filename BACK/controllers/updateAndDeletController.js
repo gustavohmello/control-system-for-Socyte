@@ -1,5 +1,5 @@
 import updateAndDeletServices from "../services/updateAndDeletServices.js"
-import authServices from "../services/authServices.js";
+
 
 // Business
 
@@ -64,6 +64,15 @@ const userDelet = async (req,res,next) => {
 
 //  Time
 
+const listTime = async (req,res,next) => {
+    try {
+        const time = await updateAndDeletServices.listTime();
+        res.json(time); 
+    }catch (error){  
+        next(error);
+    }
+};
+
 const updateTime = async (req,res,next) => {
     try{
         const user = await updateAndDeletServices.updateTime(req.params.id, req.body);
@@ -91,5 +100,6 @@ export default {
     updateUser,
     userDelet,
     updateTime,
-    timeDelet
+    timeDelet,
+    listTime
 }

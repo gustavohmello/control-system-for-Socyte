@@ -17,6 +17,7 @@ router.delete("/:id/userDelet",updateAndDeletController.userDelet);
 
 // Time
 
+router.get("/listTime", updateAndDeletController.listTime);
 router.put("/:id/updateTime", updateAndDeletController.updateTime);
 router.delete("/:id/timeDelet", updateAndDeletController.timeDelet);
 

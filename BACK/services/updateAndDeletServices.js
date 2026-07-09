@@ -90,6 +90,10 @@ const userDelet = async (id) => {
 
 // Time
 
+const listTime = async () => {
+    return Time.find();
+}
+
 
 const updateTime = async (id) => {
 
@@ -138,6 +142,7 @@ export default {
     updateUser,
     userDelet,
     updateTime,
-    timeDelet
+    timeDelet,
+    listTime
 
 }
