@@ -1,37 +1,6 @@
 import authServices from "../services/authServices.js"
 
-
-// Não estão sendo usadas ainda !
-
-const listUser = async (req,res,next) => {
-    try {
-        const user = await authServices.listUser();
-        res.json(user); 
-    }catch (error){  
-        next(error);
-    }
-};
-
-const updateUser = async (req,res,next) => {
-    try{
-        const user = await authServices.updateUser(req.params.id, req.body);
-        res.json(user);
-    }catch (error){
-        next(error);
-    }
-};
-
-const userDelet = async (req,res,next) => {
-    try{
-        const user = await authServices.userDelet(req.params.id);
-        res.json({ menssage: "User successfully deleted ", user});
-    }catch (error){
-        next(error);
-    }
-}
-
 // Auth User controllers
-
 
 const register = async (req,res,next) => {
     try{
@@ -94,9 +63,6 @@ const registerTime = async (req,res,next) => {
 
 
 export default {    
-    listUser,
-    updateUser,
-    userDelet,
     login,
     register,
     registerBusiness,

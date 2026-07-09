@@ -9,6 +9,7 @@ router.get("/",authMiddleware,authController.listUser);
 router.put("/:id",authController.updateUser);
 router.delete("/:id",authController.userDelet);
 
+
 // Auth User routes
 
 router.post("/register", authController.register);
