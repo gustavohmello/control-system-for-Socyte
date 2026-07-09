@@ -31,40 +31,10 @@ const login = async (req,res,next) => {
     }
 }
 
-// Business Register
-
-const registerBusiness = async (req,res,next) => {
-    try{
-        const business = await authServices.registerBusiness(req.body);
-
-        res.status(201).json({
-            menssage: "Business register sucessful",
-            data: business,
-        })
-    }catch (error){
-        next(error)
-    }
-}
-
-// Time Register
-
-const registerTime = async (req,res,next) => {
-    try{
-        const time = await authServices.registerTime(req.body);
-
-        res.status(201).json({
-            menssage: "Time register sucessful",
-            data: time,
-        })
-    }catch (error){
-        next(error)
-    }
-}
 
 
 export default {    
     login,
     register,
-    registerBusiness,
-    registerTime
+   
 };

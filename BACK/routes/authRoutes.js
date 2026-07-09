@@ -9,14 +9,6 @@ const router = express.Router();
 router.post("/register", authController.register);
 router.post("/login", authController.login) 
 
-// Business Register
-
-router.post("/registerBusiness", authController.registerBusiness)
-
-// Time Resgiter
-
-router.post("/registerTime", authController.registerTime)
-
 
 
 
