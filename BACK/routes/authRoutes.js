@@ -1,8 +1,13 @@
 import express from "express";
 import authController from "../controllers/authController.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 
 const router = express.Router();
+
+router.get("/",authMiddleware,authController.listUser);
+router.put("/:id",authController.updateUser);
+router.delete("/:id",authController.userDelet);
 
 
 // Auth User routes
