@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import User from "../models/userModel.js";
+import User from "../models/user.js";
 
 const authMiddleware = async (req, res, next) => {
   try {
@@ -11,17 +11,17 @@ const authMiddleware = async (req, res, next) => {
 
     const parts = authorization.split(" ");
 
-    if (parts !== 2) {
+    if (parts.length !== 2) {
       res.status(401).json({ error: "Token mal formatado" });
     }
 
     const [scheme, token] = parts;
 
-    if (!scheme !== "Bearer") {
+    if (scheme !== "Bearer") {
       res.status(401).json({ error: "Formato de token inválido" });
     }
 
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = jwt.verify(token,process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.id).select("-password");
 
@@ -29,11 +29,11 @@ const authMiddleware = async (req, res, next) => {
       return res.status(401).json({ error: "Usuário não encontrado" });
     }
 
-    if (!user.active) {
+    if (!user.Active) {
       return res.status(403).json({ error: "Usuário inativo" });
     }
 
-    req.user = user;
+    req.user = user; /// token invalido ou expirado
     next();
   } catch (error) {
     return res.status(401).json({ error: "Token inválido ou expirado" });
