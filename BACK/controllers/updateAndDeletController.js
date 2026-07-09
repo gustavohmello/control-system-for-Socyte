@@ -84,14 +84,21 @@ const updateTime = async (req,res,next) => {
  
 const timeDelet = async (req,res,next) => {
     try{
-        const user = await updateAndDeletServices.timeDelet(req.params.id);
+        const time = await updateAndDeletServices.timeDelet(req.params.id);
         res.json({ menssage: "time successfully deleted ", time});
     }catch (error){
         next(error);
     }
 }
 
-
+const getDay = async (req, res, next) => {
+    try{
+        const day = await updateAndDeletServices.getDay(req.params.day);
+        res.json({day});
+    } catch (error){
+       next(error);
+    }
+}
 export default {
     listBusiness,
     updateBusiness,
@@ -101,5 +108,6 @@ export default {
     userDelet,
     updateTime,
     timeDelet,
-    listTime
+    listTime,
+    getDay
 }
