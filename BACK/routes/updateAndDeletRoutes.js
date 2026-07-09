@@ -1,5 +1,6 @@
 import express from "express";
 import updateAndDeletController from "../controllers/updateAndDeletController.js";
+import authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -20,5 +21,7 @@ router.delete("/:id/userDelet",updateAndDeletController.userDelet);
 router.get("/listTime", updateAndDeletController.listTime);
 router.put("/:id/updateTime", updateAndDeletController.updateTime);
 router.delete("/:id/timeDelet", updateAndDeletController.timeDelet);
+
+router.get("/getday/:day",updateAndDeletController.getDay);
 
 export default router;

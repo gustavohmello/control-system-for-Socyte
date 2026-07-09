@@ -131,7 +131,12 @@ const timeDelet = async (id) => {
     return time
 }
 
+const getDay = async (Day) => {
+    
+    const day = await Time.find({date: Day});
 
+    return day
+}
 
 
 export default {
@@ -143,6 +148,7 @@ export default {
     userDelet,
     updateTime,
     timeDelet,
-    listTime
+    listTime,
+    getDay
 
 }
