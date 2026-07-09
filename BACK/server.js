@@ -3,7 +3,9 @@ import dotenv from "dotenv";
 import conectDB from "./config/db.js";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
-import updateAndDeletRoutes from "./routes/updateAndDeletRoutes.js"
+import userRoutes from "./routes/userRoutes.js";
+import timeRoutes from "./routes/timeRoutes.js";
+import businessRoutes from "./routes/businessRoutes.js";
 
 
 
@@ -20,8 +22,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/auth", authRoutes);
-app.use("/updateAndDelet",updateAndDeletRoutes);
-
+app.use("/user",userRoutes);
+app.use("/time", timeRoutes);
+app.use("/business", businessRoutes);
 
 
 

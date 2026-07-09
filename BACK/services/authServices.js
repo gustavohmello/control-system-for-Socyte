@@ -1,6 +1,4 @@
 import User from "../models/user.js";
-import Business from "../models/business.js";
-import Time from "../models/ReservationTime.js"
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -101,96 +99,10 @@ const login = async (data) => {
 
 }
 
-// Business Register
-
-const registerBusiness = async (data) => {
-    const { NameSocyte, Address, ContactPhoneNumber, OpenAirOrCovered, daysOfOperation, playingTime, hourlyRate, paymentMethods, cancellationPolicy, UsagePolicy, ItHasChangingRoomsAndASnackBar } = data;
-
-    if (!NameSocyte || !Address || !ContactPhoneNumber || !OpenAirOrCovered || !daysOfOperation || !playingTime || !hourlyRate || !paymentMethods || !cancellationPolicy || !UsagePolicy || !ItHasChangingRoomsAndASnackBar) {
-        throw new Error("Name, email, and password are required.")
-    }
-
-    const businessExists = await Business.findOne({ Address });
-
-    if (businessExists) {
-        throw new Error("A business with this sddress already exists.")
-    }
-
-
-    const business = await Business.create({
-        NameSocyte,
-        Address,
-        ContactPhoneNumber,
-        OpenAirOrCovered,
-        daysOfOperation,
-        playingTime,
-        hourlyRate,
-        paymentMethods,
-        cancellationPolicy,
-        UsagePolicy,
-        ItHasChangingRoomsAndASnackBar,
-    });
-
-    return {
-
-        NameSocyte: business.NameSocyte,
-        Address: business.Address,
-        ContactPhoneNumber: business.ContactPhoneNumber,
-        OpenAirOrCovered: business.OpenAirOrCovered,
-        daysOfOperation: business.daysOfOperation,
-        playingTime: business.playingTime,
-        hourlyRate: business.hourlyRate,
-        paymentMethods: business.paymentMethods,
-        cancellationPolicy: business.cancellationPolicy,
-        UsagePolicy: business.UsagePolicy,
-        ItHasChangingRoomsAndASnackBar: business.ItHasChangingRoomsAndASnackBar
-
-    }
-
-}
-
-// Time Register
-
-const registerTime = async (data) => {
-    const { date, startTime, endTime, NameOfPersonInCharge, amountPayable } = data;
-
-    if (!date || !startTime || !endTime || !NameOfPersonInCharge || !amountPayable) {
-        throw new Error("Name, email, and password are required.")
-    }
-
-    const timeExists = await Time.findOne({ date });
-
-    if (timeExists) {
-        throw new Error("A time with this date already exists.")
-    }
-
-
-    const time = await Time.create({
-
-        date,
-        startTime,
-        endTime,
-        NameOfPersonInCharge, 
-        amountPayable
-
-    });
-
-    return {
-
-        date: time.date,
-        startTime: time.startTime,
-        endTime: time.endTime,
-        NameOfPersonInCharge: time.NameOfPersonInCharge,
-        amountPayable: time.amountPayable
-
-    }
-
-};
 
 
 export default {
     login,
     register,
-    registerBusiness,
-    registerTime
+  
 }
