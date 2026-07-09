@@ -3,10 +3,14 @@ import mongoose from "mongoose";
 const businessSchema = new mongoose.Schema(
 
     {
-        NameSocyte : {
-            type: String,
-            required: true,
-            trim: true,
+        NameSocyte: {
+            type: [{
+                type: String,
+                trim: true
+
+            }],
+
+            required: true
         },
 
         Address: {
@@ -23,27 +27,26 @@ const businessSchema = new mongoose.Schema(
         },
 
         OpenAirOrCovered: {
-            type: String,
+            type: [{
+                type: String,
+                trim: true
+            }],
             required: true,
         },
 
         daysOfOperation: {
-            
-             type: [
+
+            type: [
                 {
-                    type:String,
-                    trim:true
+                    type: String,
+                    trim: true
                 }
-             ],
+            ],
 
-             required: true
+            required: true
         },
 
-        playingTime: {
-            type: String,
-            required: true,
-            trim: true,
-        },
+        
 
         hourlyRate: {
             type: Number,
@@ -52,18 +55,18 @@ const businessSchema = new mongoose.Schema(
         },
 
         paymentMethods: {
-            
-             
+
+
             type: [
                 {
-                    type:String,
-                    trim:true
+                    type: String,
+                    trim: true
                 }
-             ],
+            ],
 
-             required: true
+            required: true
         },
-   
+
 
         cancellationPolicy: {
             type: String,

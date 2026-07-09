@@ -4,22 +4,22 @@ import mongoose from "mongoose";
 const ReservationTimeSchema = new mongoose.Schema(
     {
 
-        date:{
-           type: String,
-           required:true,
-           trim:true
-        },
 
-        startTime: {
-            type: String,
-            required:true,
-            trim:true
-        },
-
-        endTime: {
-            type: String,
+        Date: {
+            type: Date,
             required: true,
-            trim:true
+            trim: true
+        },
+
+        Hours: {
+            type: [
+                {
+                    type:Number,
+                    trim:true
+                }
+             ],
+
+             required: true
         },
 
         NameOfPersonInCharge: {
@@ -33,6 +33,9 @@ const ReservationTimeSchema = new mongoose.Schema(
             required: true,
             trim: true,
         }
+    },
+    {
+        timestamps: true,
     }
 );
 
