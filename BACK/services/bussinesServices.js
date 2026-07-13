@@ -5,13 +5,13 @@ import jwt from "jsonwebtoken";
 // Business Register
 
 const registerBusiness = async (data) => {
-    const { NameSocyte, Address, ContactPhoneNumber, OpenAirOrCovered, daysOfOperation, playingTime, hourlyRate, paymentMethods, cancellationPolicy, UsagePolicy, ItHasChangingRoomsAndASnackBar } = data;
+    const { nameSocyte, address, contactPhoneNumber, findOnepenAirOrCovered, daysOfOperation, playingTime, hourlyRate, paymentMethods, cancellationPolicy, usagePolicy, itHasChangingRoomsAndASnackBar } = data;
 
-    if (!NameSocyte || !Address || !ContactPhoneNumber || !OpenAirOrCovered || !daysOfOperation || !playingTime || !hourlyRate || !paymentMethods || !cancellationPolicy || !UsagePolicy || !ItHasChangingRoomsAndASnackBar) {
+    if (!nameSocyte || !address || !contactPhoneNumber || !openAirOrCovered || !daysOfOperation || !playingTime || !hourlyRate || !paymentMethods || !cancellationPolicy || !usagePolicy || !itHasChangingRoomsAndASnackBar) {
         throw new Error("Name, email, and password are required.")
     }
 
-    const businessExists = await Business.findOne({ Address });
+    const businessExists = await Business.findOne({ Addressddress });
 
     if (businessExists) {
         throw new Error("A business with this sddress already exists.")
@@ -19,32 +19,32 @@ const registerBusiness = async (data) => {
 
 
     const business = await Business.create({
-        NameSocyte,
-        Address,
-        ContactPhoneNumber,
-        OpenAirOrCovered,
+        nameSocyte,
+        address,
+        contactPhoneNumber,
+        openAirOrCovered,
         daysOfOperation,
         playingTime,
         hourlyRate,
         paymentMethods,
         cancellationPolicy,
-        UsagePolicy,
-        ItHasChangingRoomsAndASnackBar,
+        usagePolicy,
+        itHasChangingRoomsAndASnackBar,
     });
 
     return {
 
-        NameSocyte: business.NameSocyte,
-        Address: business.Address,
-        ContactPhoneNumber: business.ContactPhoneNumber,
-        OpenAirOrCovered: business.OpenAirOrCovered,
+        nameSocyte: business.nameSocyte,
+        address: business.address,
+        contactPhoneNumber: business.contactPhoneNumber,
+        openAirOrCovered: business.openAirOrCovered,
         daysOfOperation: business.daysOfOperation,
         playingTime: business.playingTime,
         hourlyRate: business.hourlyRate,
         paymentMethods: business.paymentMethods,
         cancellationPolicy: business.cancellationPolicy,
-        UsagePolicy: business.UsagePolicy,
-        ItHasChangingRoomsAndASnackBar: business.ItHasChangingRoomsAndASnackBar
+        usagePolicy: business.usagePolicy,
+        itHasChangingRoomsAndASnackBar: business.itHasChangingRoomsAndASnackBar
 
     }
 

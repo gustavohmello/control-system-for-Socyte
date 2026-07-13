@@ -37,7 +37,7 @@ const startServer = async () => {
             console.log(  `Servidor esta rodando na porta ${PORT}`);
         });
     }catch (error) {
-        console.log("ERRO ao iniciar o servidor:", error.menssage);
+        console.log("ERRO ao iniciar o servidor:", error.message);
     }
 };
   

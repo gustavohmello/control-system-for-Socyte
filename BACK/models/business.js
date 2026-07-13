@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const businessSchema = new mongoose.Schema(
 
     {
-        NameSocyte: {
+        nameSocyte: {
             type: [{
                 type: String,
                 trim: true
@@ -13,20 +13,20 @@ const businessSchema = new mongoose.Schema(
             required: true
         },
 
-        Address: {
+        address: {
             type: String,
-            require: true,
+            required: true,
             trim: true,
             unique: true,
         },
 
-        ContactPhoneNumber: {
+        contactPhoneNumber: {
             type: Number,
             required: true,
             trim: true,
         },
 
-        OpenAirOrCovered: {
+        openAirOrCovered: {
             type: [{
                 type: String,
                 trim: true
@@ -74,13 +74,13 @@ const businessSchema = new mongoose.Schema(
             trim: true,
         },
 
-        UsagePolicy: {
+        usagePolicy: {
             type: String,
             required: true,
             trim: true,
         },
 
-        ItHasChangingRoomsAndASnackBar: {
+        itHasChangingRoomsAndASnackBar: {
             type: String,
             required: true,
             trim: true,
