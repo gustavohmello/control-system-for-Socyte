@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const conectDB = async () => {
+const connectDB = async () => {
     if (!process.env.MONGO_URI){
         throw new Error("MONGO_URI: não foi encontrado no arquivo .env ");
     }
@@ -9,4 +9,4 @@ const conectDB = async () => {
     console.log("conectado com o MongoDB");
 };
 
-export default conectDB;
+export default connectDB;

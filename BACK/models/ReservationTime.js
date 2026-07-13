@@ -4,17 +4,34 @@ import mongoose from "mongoose";
 const ReservationTimeSchema = new mongoose.Schema(
     {
 
+        businessId: {
+            type:mongoose.Schema.Types.ObjectId,
+            required: true,
+            trim: true
 
-        Date: {
+        },
+
+
+        date: {
             type: Date,
             required: true,
             trim: true
         },
 
-        Hours: {
+        startTime: {
             type: [
                 {
-                    type:Number,
+                    type:Date,
+                    trim:true
+                }
+             ],
+
+             required: true
+        },
+        endTime: {
+            type: [
+                {
+                    type:Date,
                     trim:true
                 }
              ],
@@ -22,7 +39,7 @@ const ReservationTimeSchema = new mongoose.Schema(
              required: true
         },
 
-        NameOfPersonInCharge: {
+        nameOfPersonInCharge: {
             type: String,
             required: true,
             trim: true

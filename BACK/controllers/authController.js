@@ -7,8 +7,8 @@ const register = async (req,res,next) => {
         const user = await authServices.register(req.body);
 
         res.status(201).json({
-            menssage: "User register sucessful",
-            deta: user,
+            message: "User register sucessful",
+            data: user,
         })
     }catch (error){
         next(error)
@@ -22,7 +22,7 @@ const login = async (req,res,next) => {
         const result = await authServices.login(req.body);
 
         res.status(200).json({
-            menssage: "Login successful",
+            message: "Login successful",
             data: result,
 
         })

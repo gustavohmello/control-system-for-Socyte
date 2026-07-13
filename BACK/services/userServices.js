@@ -28,7 +28,10 @@ const updateUser = async (id, data) => {
 
 const userDelet = async (id) => {
 
-    const deleteUser = await User.countDocuments({_id: id });
+    const deleteUser = await User.countDocuments({ id: _id,
+        active: true
+        
+     });
 
     if (deleteUser > 0 ){
         const error = new Error ("It is not possible to delete a user who has an active account.");

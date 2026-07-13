@@ -1,39 +1,49 @@
 import Time from "../models/ReservationTime.js"
+import Business from "../models/business.js"
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // Time Register
 
 const registerTime = async (data) => {
-    const { date, startTime, endTime, NameOfPersonInCharge, amountPayable } = data;
+    const {businessId, date, startTime, endTime, nameOfPersonInCharge, amountPayable } = data;
 
-    if (!date || !startTime || !endTime || !NameOfPersonInCharge || !amountPayable) {
+    if (!businessId, !date || !startTime || !endTime || !nameOfPersonInCharge || !amountPayable) {
         throw new Error("Name, email, and password are required.")
     }
 
-    const timeExists = await Time.findOne({ date });
+  const conflictingEvent = await Time.findOne({
+        businessId,
+        date,
+        $or: [
+            { startTime: { $lt: endTime }, endTime: { $gt: startTime } }
+        ]
+    });
 
-    if (timeExists) {
-        throw new Error("A time with this date already exists.")
+    if (conflictingEvent) {
+        const error = new Error("Este horário já está reservado para esta quadra.");
+        error.statusCode = 409;
+        throw error;
     }
 
 
     const time = await Time.create({
 
+          businessId,
         date,
         startTime,
         endTime,
-        NameOfPersonInCharge, 
+        nameOfPersonInCharge, 
         amountPayable
 
     });
 
     return {
-
+         businessId: time.businessId,
         date: time.date,
         startTime: time.startTime,
         endTime: time.endTime,
-        NameOfPersonInCharge: time.NameOfPersonInCharge,
+        nameOfPersonInCharge: time.NameOfPersonInCharge,
         amountPayable: time.amountPayable
 
     }
@@ -47,20 +57,20 @@ const listTime = async () => {
 }
 
 
-const updateTime = async (id) => {
+const updateTime = async (id,data) => {
 
-    const user = await User.findByIdAndUpdate(id, data, {
+    const time = await Time.findByIdAndUpdate(id, data, {
         returnDocument: 'after',
         runValidators: true,
     });
 
-    if (!user) {
+    if (!time) {
         const error = new Error("Time not found");
         error.statusCode = 404;
         throw error;
     }
 
-    return user;
+    return time;
 }
 
 const timeDelet = async (id) => {
