@@ -8,8 +8,8 @@ import jwt from "jsonwebtoken";
 const registerTime = async (data) => {
     const {businessId, date, startTime, endTime, nameOfPersonInCharge, amountPayable } = data;
 
-    if (!businessId, !date || !startTime || !endTime || !nameOfPersonInCharge || !amountPayable) {
-        throw new Error("Name, email, and password are required.")
+    if (!businessId ||  !date || !startTime || !endTime || !nameOfPersonInCharge || !amountPayable) {
+        throw new Error("businesId, startTime, and endTime are required.")
     }
 
   const conflictingEvent = await Time.findOne({
@@ -21,7 +21,7 @@ const registerTime = async (data) => {
     });
 
     if (conflictingEvent) {
-        const error = new Error("Este horário já está reservado para esta quadra.");
+        const error = new Error("This time slot is already reserved for this court..");
         error.statusCode = 409;
         throw error;
     }
@@ -43,7 +43,7 @@ const registerTime = async (data) => {
         date: time.date,
         startTime: time.startTime,
         endTime: time.endTime,
-        nameOfPersonInCharge: time.NameOfPersonInCharge,
+        nameOfPersonInCharge: time.nameOfPersonInCharge,
         amountPayable: time.amountPayable
 
     }
