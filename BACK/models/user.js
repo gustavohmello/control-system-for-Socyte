@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema(
 
         Telephone: {
             type: String, 
+            required: true,
             trim: true,
             unique: true,
         },
@@ -38,6 +39,7 @@ const UserSchema = new mongoose.Schema(
 
         password: {
             type: String,
+            required: true,
             select: false,
             trim: true
         },
