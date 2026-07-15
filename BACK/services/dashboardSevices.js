@@ -1,10 +1,10 @@
 import ReservationTime from "../models/ReservationTime.js";
 
-const dashboard = async () => {
 
+const dashboard = async () => {
     const today = new Date();
 
-    today.setHours(0,0,0,0);
+    today.setHours(0, 0, 0, 0);
 
     const tomorrow = new Date(today);
 
@@ -14,8 +14,8 @@ const dashboard = async () => {
     const reservationsToday = await ReservationTime.countDocuments({
         date: {
             $gte: today,
-            $lt: tomorrow
-        }
+            $lt: tomorrow,
+        },
     });
 
     // Total de reservas
@@ -27,10 +27,10 @@ const dashboard = async () => {
             $group: {
                 _id: null,
                 total: {
-                    $sum: "$amountPayable"
-                }
-            }
-        }
+                    $sum: "$amountPayable",
+                },
+            },
+        },
     ]);
 
     // Arrecadação de hoje
@@ -39,48 +39,40 @@ const dashboard = async () => {
             $match: {
                 date: {
                     $gte: today,
-                    $lt: tomorrow
-                }
-            }
+                    $lt: tomorrow,
+                },
+            },
         },
         {
             $group: {
                 _id: null,
                 total: {
-                    $sum: "$amountPayable"
-                }
-            }
-        }
+                    $sum: "$amountPayable",
+                },
+            },
+        },
     ]);
 
     // Últimas reservas
-    const recentReservations = await ReservationTime
-        .find()
+    const recentReservations = await ReservationTime.find()
         .sort({ createdAt: -1 })
         .limit(5);
 
     return {
-
         reservationsToday,
 
         totalReservations,
 
-        totalRevenue:
-            totalRevenue.length > 0
-                ? totalRevenue[0].total
-                : 0,
+        totalRevenue: totalRevenue.length > 0 ? totalRevenue[0].total : 0,
 
-        revenueToday:
-            revenueToday.length > 0
-                ? revenueToday[0].total
-                : 0,
+        revenueToday: revenueToday.length > 0 ? revenueToday[0].total : 0,
 
-        recentReservations
-
+        recentReservations,
     };
+};
 
-}
+
 
 export default {
     dashboard,
-}
+};
