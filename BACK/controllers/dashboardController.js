@@ -12,6 +12,21 @@ const dashboard = async (req, res, next) => {
     }
 }
 
+
+
+const userDashboard = async (req, res, next) => {
+    try {
+
+        const data = await dashboardSevices.userDashboard();
+
+        res.status(200).json(data);
+
+    } catch (error) {
+        next(error);
+    }
+}
+
 export default {
-    dashboard
+    dashboard,
+    userDashboard
 };

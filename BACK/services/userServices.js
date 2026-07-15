@@ -31,7 +31,7 @@ const updateUser = async (id, data) => {
 };
 
 const userDelet = async (id) => {
-  const deleteUser = await User.countDocuments({ id: _id, active: true });
+  const deleteUser = await User.countDocuments({ _id: id, active: true });
 
   if (deleteUser > 0) {
     const error = new Error(
