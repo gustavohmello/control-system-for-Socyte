@@ -30,11 +30,11 @@ const authMiddleware = async (req, res, next) => {
       return res.status(401).json({ error: "Usuário não encontrado" });
     }
 
-    if (!user.Active) {
+    if (!user.active) {
       return res.status(403).json({ error: "Usuário inativo" });
     }
 
-    req.user = user; /// token invalido ou expirado
+    req.user = user; 
     next();
   } catch (error) {
     return res.status(401).json({ error: "Token inválido ou expirado" });

@@ -17,7 +17,7 @@ const updateUser = async (id, data) => {
     error.statusCode = 404;
     throw error;
   }
-  const exists = await User.findOne({
+  const exists = await User.findOne({ 
     $or: [{ Email }, { CPF }, { Telephone }],
   });
 

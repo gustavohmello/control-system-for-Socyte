@@ -16,8 +16,9 @@ const dashboard = async (req, res, next) => {
 
 const userDashboard = async (req, res, next) => {
     try {
+    
 
-        const data = await dashboardSevices.userDashboard();
+        const data = await dashboardSevices.userDashboard(req.params.id); // businessId
 
         res.status(200).json(data);
 
