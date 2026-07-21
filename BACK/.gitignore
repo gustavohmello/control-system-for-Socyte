@@ -1,3 +1,8 @@
 /node_modules
 .env
 package-lock.json
+
+senhas
+
+vinicius: "password": "$2b$10$nsRhGJ5TN033ahNKAEUMP.y1BZt7RRQdSfA7sp87aFXENPb/kK/6S"
+gustavo: 
