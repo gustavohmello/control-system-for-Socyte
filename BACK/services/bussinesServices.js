@@ -5,9 +5,9 @@ import jwt from "jsonwebtoken";
 // Business Register
 
 const registerBusiness = async (data) => {
-    const {  ownerID, workersID,nameSocyte, address, contactPhoneNumber, findOnepenAirOrCovered, daysOfOperation, playingTime, hourlyRate, paymentMethods, cancellationPolicy, usagePolicy, itHasChangingRoomsAndASnackBar } = data;
+    const {  ownerID, workersID,nameSocyte, address, contactPhoneNumber, openAirOrCovered, daysOfOperation, hourlyRate, paymentMethods, cancellationPolicy, usagePolicy, itHasChangingRoomsAndASnackBar } = data;
 
-    if (!ownerID || !nameSocyte || !address || !contactPhoneNumber || !openAirOrCovered || !daysOfOperation || !playingTime || !hourlyRate || !paymentMethods || !cancellationPolicy || !usagePolicy || !itHasChangingRoomsAndASnackBar) {
+    if (!ownerID || !nameSocyte || !address || !contactPhoneNumber || !openAirOrCovered || !daysOfOperation  || !hourlyRate || !paymentMethods || !cancellationPolicy || !usagePolicy || !itHasChangingRoomsAndASnackBar) {
         throw new Error("Name, email, and password are required.")
     }
 
@@ -20,12 +20,12 @@ const registerBusiness = async (data) => {
 
     const business = await Business.create({
         ownerID,
+        workersID,
         nameSocyte,
         address,
         contactPhoneNumber,
         openAirOrCovered,
         daysOfOperation,
-        playingTime,
         hourlyRate,
         paymentMethods,
         cancellationPolicy,
@@ -35,12 +35,12 @@ const registerBusiness = async (data) => {
 
     return {
         ownerID: business.ownerID,
+        workersID:business.workersID,
         nameSocyte: business.nameSocyte,
         address: business.address,
         contactPhoneNumber: business.contactPhoneNumber,
         openAirOrCovered: business.openAirOrCovered,
         daysOfOperation: business.daysOfOperation,
-        playingTime: business.playingTime,
         hourlyRate: business.hourlyRate,
         paymentMethods: business.paymentMethods,
         cancellationPolicy: business.cancellationPolicy,

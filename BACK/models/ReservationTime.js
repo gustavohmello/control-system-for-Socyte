@@ -21,7 +21,7 @@ const ReservationTimeSchema = new mongoose.Schema(
         startTime: {
             type: [
                 {
-                    type:Date,
+                    type:String,
                     trim:true
                 }
              ],
@@ -31,7 +31,7 @@ const ReservationTimeSchema = new mongoose.Schema(
         endTime: {
             type: [
                 {
-                    type:Date,
+                    type:String,
                     trim:true
                 }
              ],
