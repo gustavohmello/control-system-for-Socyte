@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import Business from "../models/business.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -11,15 +12,15 @@ const register = async (data) => {
     throw new Error("Name, email, CPF, Telephone and password are required.");
   }
 
-  
+
 
   const userExists = await User.findOne({
-  $or: [
-    { Email },
-    { CPF },
-    { Telephone }
-  ]
-});
+    $or: [
+      { Email },
+      { CPF },
+      { Telephone }
+    ]
+  });
 
   if (userExists) {
     throw new Error("A user with this email,CPF or Telephone already exists.");
@@ -58,11 +59,13 @@ const login = async (data) => {
 
   const user = await User.findOne({ Email }).select("+password");
 
+
+
   if (!user) {
     throw new Error("Email or passord invalid");
   }
 
-  if (user.Active === false) {
+  if (user.active === false) {
     throw new Error("User is deactivated");
   }
 
@@ -74,10 +77,20 @@ const login = async (data) => {
     throw error;
   }
 
+  const business = await Business.findOne({
+    $or: [{ ownerID: user._id }, { workersID: user._id }],
+  });
+
+  if (!business) {
+    throw new Error("This user is not registered with any business ");
+
+  }
+
   const token = jwt.sign(
     {
       id: user._id,
       role: user.role,
+      businessID: business._id
     },
     process.env.JWT_SECRET,
     {
@@ -93,7 +106,24 @@ const login = async (data) => {
       Telephone: user.Telephone,
       CPF: user.CPF,
       role: user.role,
-      Active: user.Active,
+      active: user.active,
+    },
+    business: {
+      ownerID: business.ownerID,
+      workersID: business.workersID,
+      nameSocyte: business.nameSocyte,
+      address: business.address,
+      contactPhoneNumber: business.contactPhoneNumber,
+      openAirOrCovered: business.contactPhoneNumber,
+      daysOfOperation: business.daysOfOperation,
+      hourlyRate: business.hourlyRate,
+      paymentMethods: business.paymentMethods,
+      cancellationPolicy: business.cancellationPolicy,
+      usagePolicy: business.usagePolicy,
+      itHasChangingRoomsAndASnackBar: business.itHasChangingRoomsAndASnackBar
+
+
+
     },
     token,
   };

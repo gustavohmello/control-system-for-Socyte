@@ -4,7 +4,23 @@ const businessSchema = new mongoose.Schema(
 
     {
 
-        
+        ownerID: {                                         // adicionei owner id
+            type:mongoose.Schema.Types.ObjectId,
+            required: true,
+            trim: true,
+
+        },
+
+        workersID: {
+            type: [{
+                type: mongoose.Schema.Types.ObjectId,
+
+            }],
+            required:true,
+            trim:true
+        },
+
+
         nameSocyte: {
             type: [{
                 type: String,
@@ -48,7 +64,7 @@ const businessSchema = new mongoose.Schema(
             required: true
         },
 
-        
+
 
         hourlyRate: {
             type: Number,
