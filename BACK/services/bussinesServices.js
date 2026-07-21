@@ -5,13 +5,13 @@ import jwt from "jsonwebtoken";
 // Business Register
 
 const registerBusiness = async (data) => {
-    const { nameSocyte, address, contactPhoneNumber, findOnepenAirOrCovered, daysOfOperation, playingTime, hourlyRate, paymentMethods, cancellationPolicy, usagePolicy, itHasChangingRoomsAndASnackBar } = data;
+    const {  ownerID, workersID,nameSocyte, address, contactPhoneNumber, findOnepenAirOrCovered, daysOfOperation, playingTime, hourlyRate, paymentMethods, cancellationPolicy, usagePolicy, itHasChangingRoomsAndASnackBar } = data;
 
-    if (!nameSocyte || !address || !contactPhoneNumber || !openAirOrCovered || !daysOfOperation || !playingTime || !hourlyRate || !paymentMethods || !cancellationPolicy || !usagePolicy || !itHasChangingRoomsAndASnackBar) {
+    if (!ownerID || !nameSocyte || !address || !contactPhoneNumber || !openAirOrCovered || !daysOfOperation || !playingTime || !hourlyRate || !paymentMethods || !cancellationPolicy || !usagePolicy || !itHasChangingRoomsAndASnackBar) {
         throw new Error("Name, email, and password are required.")
     }
 
-    const businessExists = await Business.findOne({ Addressddress });
+    const businessExists = await Business.findOne({ address });
 
     if (businessExists) {
         throw new Error("A business with this sddress already exists.")
@@ -19,6 +19,7 @@ const registerBusiness = async (data) => {
 
 
     const business = await Business.create({
+        ownerID,
         nameSocyte,
         address,
         contactPhoneNumber,
@@ -33,7 +34,7 @@ const registerBusiness = async (data) => {
     });
 
     return {
-
+        ownerID: business.ownerID,
         nameSocyte: business.nameSocyte,
         address: business.address,
         contactPhoneNumber: business.contactPhoneNumber,
@@ -96,7 +97,7 @@ const deleteBusiness = async(id)=>{
 export default {
     listBusiness,
     updateBusiness,
-    deleteBusiness,
+    deleteBusiness, 
     registerBusiness
 
 
