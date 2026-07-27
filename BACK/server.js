@@ -8,11 +8,6 @@ import timeRoutes from "./routes/timeRoutes.js";
 import businessRoutes from "./routes/businessRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
 
-
-
-
-
-
 dotenv.config();
 
 const app = express();
@@ -26,8 +21,6 @@ app.use("/user",userRoutes);
 app.use("/time", timeRoutes);
 app.use("/business", businessRoutes);
 app.use("/dashboard", dashboardRoutes);
-
-
 
 const startServer = async () => {
     try {
