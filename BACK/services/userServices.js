@@ -18,7 +18,7 @@ const updateUser = async (id, data) => {
     throw error;
   }
   const exists = await User.findOne({ 
-    $or: [{ Email }, { CPF }, { Telephone }],
+    $or: [{ email }, { CPF }, { telephone }],
   });
 
   if(exists){

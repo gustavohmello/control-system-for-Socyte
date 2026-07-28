@@ -3,13 +3,13 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema(
 
     {
-        Name: {
+        name: {
             type: String,
             required: true,
             trim: true,
         },
 
-        Email: {
+        email: {
             type: String,
             required: true,
             trim: true,
@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema(
             unique: true,
         },
 
-        Telephone: {
+        telephone: {
             type: String, 
             required: true,
             trim: true,

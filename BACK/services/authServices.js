@@ -6,9 +6,9 @@ import jwt from "jsonwebtoken";
 // Auth services
 
 const register = async (data) => {
-  const { Name, Email, CPF, Telephone, password, role } = data;
+  const { name, email, CPF, telephone, password, role } = data;
 
-  if (!Name || !Email || !password || !Telephone || !CPF) {
+  if (!name || !email || !password || !telephone || !CPF) {
     throw new Error("Name, email, CPF, Telephone and password are required.");
   }
 
@@ -16,9 +16,9 @@ const register = async (data) => {
 
   const userExists = await User.findOne({
     $or: [
-      { Email },
+      { email },
       { CPF },
-      { Telephone }
+      { telephone }
     ]
   });
 
@@ -29,35 +29,35 @@ const register = async (data) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await User.create({
-    Name,
-    Email,
+    name,
+    email,
     CPF,
     password: hashedPassword,
-    Telephone,
+    telephone,
     role: role || "user",
-    Active: true,
+    active: true,
   });
 
   return {
     _id: user._id,
-    Name: user.Name,
-    Email: user.Email,
+    name: user.name,
+    email: user.email,
     CPF: user.CPF,
-    Telephone: user.Telephone,
+    telephone: user.telephone,
     password: user.password,
     role: user.role,
-    Active: user.Active,
+    active: user.active,
   };
 };
 
 const login = async (data) => {
-  const { Email, password } = data;
+  const { email, password } = data;
 
-  if (!Email || !password) {
+  if (!email || !password) {
     throw new Error("Email and password are required");
   }
 
-  const user = await User.findOne({ Email }).select("+password");
+  const user = await User.findOne({ email }).select("+password");
 
 
 
@@ -101,9 +101,9 @@ const login = async (data) => {
   return {
     user: {
       _id: user._id,
-      Name: user.Name,
-      Email: user.Email,
-      Telephone: user.Telephone,
+      name: user.name,
+      email: user.email,
+      telephone: user.telephone,
       CPF: user.CPF,
       role: user.role,
       active: user.active,
