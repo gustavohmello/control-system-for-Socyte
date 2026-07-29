@@ -3,6 +3,8 @@ import authServices from "../services/authServices.js"
 // Auth User controllers
 
 const register = async (req,res,next) => {
+
+   
     try{
         const user = await authServices.register(req.body);
 
@@ -18,6 +20,7 @@ const register = async (req,res,next) => {
 
 
 const login = async (req,res,next) => {
+
     try{
         const result = await authServices.login(req.body);
 

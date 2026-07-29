@@ -33,5 +33,14 @@ const startServer = async () => {
         console.log("ERRO ao iniciar o servidor:", error.message);
     }
 };
+
+app.use((err, req, res, next) => {
+    console.error(err);
+
+    res.status(err.statusCode || 500).json({
+        message: err.message,
+        stack: err.stack,
+    });
+});
   
 startServer();  

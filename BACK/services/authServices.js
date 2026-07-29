@@ -29,7 +29,7 @@ const register = async (data) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await User.create({
-    name,
+    name, 
     email,
     CPF,
     password: hashedPassword,
@@ -77,20 +77,13 @@ const login = async (data) => {
     throw error;
   }
 
-  const business = await Business.findOne({
-    $or: [{ ownerID: user._id }, { workersID: user._id }],
-  });
-
-  if (!business) {
-    throw new Error("This user is not registered with any business ");
-
-  }
+ 
 
   const token = jwt.sign(
     {
       id: user._id,
       role: user.role,
-      businessID: business._id
+     
     },
     process.env.JWT_SECRET,
     {
@@ -108,23 +101,9 @@ const login = async (data) => {
       role: user.role,
       active: user.active,
     },
-    business: {
-      ownerID: business.ownerID,
-      workersID: business.workersID,
-      nameSocyte: business.nameSocyte,
-      address: business.address,
-      contactPhoneNumber: business.contactPhoneNumber,
-      openAirOrCovered: business.contactPhoneNumber,
-      daysOfOperation: business.daysOfOperation,
-      hourlyRate: business.hourlyRate,
-      paymentMethods: business.paymentMethods,
-      cancellationPolicy: business.cancellationPolicy,
-      usagePolicy: business.usagePolicy,
-      itHasChangingRoomsAndASnackBar: business.itHasChangingRoomsAndASnackBar
+   
 
-
-
-    },
+    
     token,
   };
 };
