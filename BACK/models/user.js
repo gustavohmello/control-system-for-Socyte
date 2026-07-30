@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema(
         },
 
         CPF: {
-            type: Number,
+            type: String,
             trim: true,
             unique: true,
             required: true,
