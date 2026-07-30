@@ -8,9 +8,7 @@ import jwt from "jsonwebtoken";
 const register = async (data) => {
   const { name, email, CPF, telephone, password, role } = data;
 
-  if (!name || !email || !CPF || !telephone || !password ) {
-    throw new Error("Name, email, CPF, Telephone and password are required.");
-  }
+
 
 
 
